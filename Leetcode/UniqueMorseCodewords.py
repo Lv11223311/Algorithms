@@ -38,4 +38,3 @@ def uniqueMorseRepresentations(words):
 if __name__ == '__main__':
     words = ["gin", "zen", "gig", "msg"]
     uniqueMorseRepresentations(words)
-    
