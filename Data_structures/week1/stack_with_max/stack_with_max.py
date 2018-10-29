@@ -15,12 +15,14 @@ class StackWithMax():
         else:
             if a > self.aux_stack[-1]:
                 self.aux_stack.append(a)
+        # print('debug push:{}'.format(self.aux_stack))
 
     def Pop(self):
         assert(len(self.__stack))
         a = self.__stack.pop()
-        if self.aux_stack[-1] == a:
+        if self.aux_stack[-1] == a and a not in self.__stack:
             self.aux_stack.pop()
+        # print('after pop:{}'.format(self.aux_stack))
 
     def Max(self):
         assert(len(self.__stack))

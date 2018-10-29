@@ -28,8 +28,8 @@ words[i] will only consist of lowercase letters. """
 
 def uniqueMorseRepresentations(words):
     morse = [".-","-...","-.-.","-..",".","..-.","--.","....",
-                 "..",".---","-.-",".-..","--","-.","---",".--.","--.-",
-                 ".-.","...","-","..-","...-",".--","-..-","-.--","--.."]
+            "..",".---","-.-",".-..","--","-.","---",".--.","--.-",
+            ".-.","...","-","..-","...-",".--","-..-","-.--","--.."]
     seen = {''.join(morse[ord(c) - ord('a')] for c in word) for word in words}
     print(seen) # debug
     return len(seen)

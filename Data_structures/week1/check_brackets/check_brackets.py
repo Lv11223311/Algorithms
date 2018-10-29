@@ -1,51 +1,43 @@
 # python3
 
-from collections import namedtuple
-
-Bracket = namedtuple("Bracket", ["char", "position"])
+import sys
 
 
-def are_matching(left, right):
-    return (left + right) in ["()", "[]", "{}"]
+class Bracket:
+    def __init__(self, bracket_type, position):
+        self.bracket_type = bracket_type
+        self.position = position
+
+    def match(self, c):
+        if self.bracket_type == '[' and c == ']':
+            return True
+        if self.bracket_type == '{' and c == '}':
+            return True
+        if self.bracket_type == '(' and c == ')':
+            return True
+        return False
 
 
-def find_mismatch(text):
-
-    if len(text)==1:
-        return 1
-
+def bracket_check(text):
     opening_brackets_stack = []
-    pos = []
-    for i, next in enumerate(text):
-        if next in "([{":
-            # Process opening bracket, write your code here
-            opening_brackets_stack.append(next)
-        if next in ")]}":
-            # Process closing bracket, write your code here
-            if len(opening_brackets_stack) == 0:
-                return i+1
-            else:
-                top = opening_brackets_stack.pop()
-                if are_matching(top, next):
+    for index, next in enumerate(text, start=1):
+        if next in ("[", "(", "{"):
+            opening_brackets_stack.append(Bracket(next, index))
 
-                else:
-                    return i+1
-    return True if len(opening_brackets_stack) == 0 else len
-        
-    
+        elif next in ("]", ")", "}"):
+            if not opening_brackets_stack:
+                return index
 
+            top = opening_brackets_stack.pop()
+            if not top.match(next):
+                return index
+    if opening_brackets_stack:
+        top = opening_brackets_stack.pop()
+        return top.position
 
-
-def main():
-    text = input()
-    mismatch = find_mismatch(text)
-    # Printing answer, write your code here
-    if mismatch is True:
-        print('Success')
-    else:
-        print(mismatch)
-
+    return "Success"
 
 
 if __name__ == "__main__":
-    main()
+    text = sys.stdin.read().strip("\n")
+    print(bracket_check(text))
